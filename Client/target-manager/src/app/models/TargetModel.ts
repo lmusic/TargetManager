@@ -1,6 +1,10 @@
+import { Injectable } from '@angular/core';
 import { TagretTypes } from './target-types';
 
-export class Target {
+@Injectable({
+    providedIn: "root"
+  })
+export class TargetModel {
     constructor(
          public id: number,
          public name: string,

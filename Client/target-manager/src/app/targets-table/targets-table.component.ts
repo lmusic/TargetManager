@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Target } from '../models/model';
+import { TargetModel } from '../models/TargetModel';
+import { MatDialog } from '@angular/material/dialog'
+import { CreateEditTagretDialogComponent } from '../create-edit-tagret-dialog/create-edit-tagret-dialog.component';
+import { AUTO_STYLE } from '@angular/animations';
 
 @Component({
   selector: 'app-targets-table',
@@ -8,19 +11,30 @@ import { Target } from '../models/model';
 })
 export class TargetsTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
-  targets: Target[];
+  targets: TargetModel[];
 
   ngOnInit(): void {
-    this.targets = [new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0),
-     new Target(1,'test1','desc1', '20/10/2020', 0)]
+    this.targets = [new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
+     new TargetModel(1,'test1','desc1', '20/10/2020', 0)]
+  }
+
+  openDialog(event){
+    console.log(event)
+    let dialogRef = this.dialog.open(CreateEditTagretDialogComponent, {
+      width: '400px'
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    })
   }
 
 }
