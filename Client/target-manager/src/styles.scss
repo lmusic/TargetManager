@@ -19,7 +19,7 @@ $prime-color-hover:  #1562ed;
 }
 
 //padding, margins and widths from 5px to 100px
-@for $i from 1 through 20 {
+@for $i from 1 through 100 {
     .p-#{$i*5}{
         padding: $i*5px;
     }
@@ -88,5 +88,19 @@ button{
     &:hover{
         background-color: #079508;
     }
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.container{
+    margin: 20px;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 

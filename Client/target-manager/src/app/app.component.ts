@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'target-manager';
   firstName = 'Sometimes there'
-  lastName = 'will be first and last name authenticated\'s user'
+  lastName = 'firsName LastName'
+
+  IsUserLogedIn = false;
+  
+  onLogin(){
+    this.IsUserLogedIn = true;
+  }
 }

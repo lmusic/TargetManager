@@ -1,9 +1,19 @@
-<header class="jc-space-between d-flex p-30">
-  <div class="w-100"><img src="../favicon.ico" alt="Logo"></div>
-  <div class="w-100"><h1>{{title}}</h1></div>
-  <div class="w-100"><p>{{firstName + ' ' + lastName}}</p></div>
-</header>
-<section>
-  <app-targets-table></app-targets-table>
-</section>
+<div *ngIf="!IsUserLogedIn">
+  <app-authorization-component (onLogin)="onLogin()"></app-authorization-component>
+</div>
+
+<div *ngIf="IsUserLogedIn">
+  <header class="jc-space-between d-flex p-30">
+    <div ><img src="../favicon.ico" alt="Logo"></div>
+    <div ><h1>{{title}}</h1></div>
+    <div ><p>{{firstName + ' ' + lastName}}</p></div>
+  </header>
+  <section>
+    <app-targets-table></app-targets-table>
+  </section>
+</div>
+
+
+
+
 

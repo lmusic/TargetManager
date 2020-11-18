@@ -14,11 +14,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { CreateEditTagretDialogComponent } from './create-edit-tagret-dialog/create-edit-tagret-dialog.component';
 import { TargetModel } from './models/TargetModel';
+import { AuthorizationComponentComponent } from './authorization-component/authorization-component.component';
 @NgModule({
   declarations: [
     AppComponent,
     TargetsTableComponent,
-    CreateEditTagretDialogComponent
+    CreateEditTagretDialogComponent,
+    AuthorizationComponentComponent
   ],
   imports: [
     BrowserModule,

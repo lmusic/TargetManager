@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateEditForm } from '../models/create-edit-form';
-import { TargetModel } from '../models/TargetModel';
 
 @Component({
   selector: 'app-create-edit-tagret-dialog',
@@ -9,7 +8,9 @@ import { TargetModel } from '../models/TargetModel';
   styleUrls: ['./create-edit-tagret-dialog.component.scss']
 })
 export class CreateEditTagretDialogComponent implements OnInit {
-  form
+
+  form;
+
   constructor(
     public dialogRef: MatDialogRef<CreateEditTagretDialogComponent>,
     ) {}
