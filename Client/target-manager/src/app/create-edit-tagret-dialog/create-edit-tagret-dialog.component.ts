@@ -22,12 +22,12 @@ export class CreateEditTagretDialogComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close('Pizza!');
+    this.dialogRef.close(this.form.value);
   }
 
   submit(){
-    debugger;
     console.log(this.form.value);
+    this.closeDialog();
   }
 
 }

@@ -24,6 +24,12 @@ export class AuthorizationComponentComponent implements OnInit {
   }
 
   submit(){
+    if(this.IsLoginMode){
+      console.log(this.loginForm.value);
+    } else{
+      console.log(this.registerForm.value);
+    }
+    
     this.onLogin.emit(true);
   }
 
