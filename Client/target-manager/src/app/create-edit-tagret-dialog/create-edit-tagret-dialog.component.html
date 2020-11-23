@@ -8,18 +8,26 @@
             <mat-label>Description</mat-label>
             <input matInput formControlName="Description">
         </mat-form-field>
-        <mat-form-field >
-            <mat-label>Deadline</mat-label>
-            <input matInput formControlName="Deadline">
-        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="Deadline">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
         <mat-form-field>
             <mat-label>Target type</mat-label>
                 <mat-select formControlName="Type">
-                    <mat-option value="1">
-                        firstOption
+                    <mat-option value=0>
+                        Week
                     </mat-option>
-                    <mat-option value="2">
-                        SecondOption
+                    <mat-option value=1>
+                        Month
+                    </mat-option>
+                    <mat-option value=2>
+                        Year
+                    </mat-option>
+                    <mat-option value=2>
+                        Global
                     </mat-option>
                 </mat-select>
       </mat-form-field>

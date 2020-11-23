@@ -2,7 +2,7 @@
 {
     public enum TargetType
     {
-        Week,
+        Week = 0,
         Month,
         Year,
         Global

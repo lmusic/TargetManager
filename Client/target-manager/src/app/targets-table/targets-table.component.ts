@@ -3,7 +3,8 @@ import { TargetModel } from '../models/TargetModel';
 import { MatDialog } from '@angular/material/dialog'
 import { CreateEditTagretDialogComponent } from '../create-edit-tagret-dialog/create-edit-tagret-dialog.component';
 import { AUTO_STYLE } from '@angular/animations';
-
+import { HttpService } from '../services/httpService';
+import { map, tap } from 'rxjs/internal/operators'
 @Component({
   selector: 'app-targets-table',
   templateUrl: './targets-table.component.html',
@@ -11,19 +12,14 @@ import { AUTO_STYLE } from '@angular/animations';
 })
 export class TargetsTableComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private httpService: HttpService) { }
 
   targets: TargetModel[];
 
   ngOnInit(): void {
-    this.targets = [new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0),
-     new TargetModel(1,'test1','desc1', '20/10/2020', 0)]
+    this.httpService.getTargets().subscribe((result: TargetModel[]) => {
+      this.targets = result;
+    });
   }
 
   openDialog(event){
@@ -33,7 +29,12 @@ export class TargetsTableComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.httpService.addTarget(result).subscribe(result => {
+        console.log(result);
+        this.httpService.getTargets().subscribe((result: TargetModel[]) => {
+          this.targets = result;
+        })
+      })
     })
   }
 

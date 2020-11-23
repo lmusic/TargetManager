@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Moment } from 'moment';
 import { TagretTypes } from './target-types';
 
 @Injectable({
@@ -9,7 +10,7 @@ export class TargetModel {
          public id: number,
          public name: string,
          public description: string, 
-         public deadline: string,
+         public deadLine: string,
          public type: TagretTypes
          ) {
     }

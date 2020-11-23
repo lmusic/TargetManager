@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using TargetManager.Domain;
 using TargetManager.Domain.EFCore;
 using TargetManager.Domain.Repository;
@@ -37,14 +40,37 @@ namespace TargetManager.API
                 });
             });
 
-            services.AddControllers();
+            //configure token and validation
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.Issuer,
+
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.Audience,
+
+                        ValidateLifetime = true,
+
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        
+                    };
+                });
+
+            services.AddControllers().AddNewtonsoftJson();
 
             //services
             services.AddScoped<ITargetService, TargetService>();
+            services.AddScoped<IUserService, UserService>();
 
             //repositories
             services.AddScoped<DbContext, DataBaseContext>();
             services.AddScoped<IRepository<Target>, Repository<Target>>();
+            services.AddScoped<IRepository<User>, Repository<User>>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,6 +83,9 @@ namespace TargetManager.API
             app.UseRouting();
 
             app.UseCors(AllowAnyCorsPolicy);
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

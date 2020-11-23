@@ -1,33 +1,36 @@
-<div *ngIf="IsLoginMode" class="container w-400">
-    <form [formGroup]="loginForm">
-        <mat-form-field >
-            <mat-label>Login:</mat-label>
-            <input matInput formControlName="Login">
-        </mat-form-field>
-        <mat-form-field >
-            <mat-label>Password:</mat-label>
-            <input type="password" matInput formControlName="Password">
-        </mat-form-field>
-        <button type="submit" class="submit-button" (click)="submit()">Login</button>
-        <button class="prime-button m-t-15" (click)="switchMode()">Register</button>
-    </form>
-</div>
+<div class="component-container">
+    <app-loading-component SpinDiamenter="40" *ngIf="isLoading" ></app-loading-component>
+    <div *ngIf="IsLoginMode" class="container w-400">
+        <form [formGroup]="loginForm">
+            <mat-form-field >
+                <mat-label>Login:</mat-label>
+                <input matInput formControlName="Login">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Password:</mat-label>
+                <input type="password" matInput formControlName="Password">
+            </mat-form-field>
+            <button type="submit" class="submit-button" (click)="submit()">Login</button>
+            <button class="prime-button m-t-15" (click)="switchMode()">Register</button>
+        </form>
+    </div>
 
-<div *ngIf="!IsLoginMode" class="container w-400">
-    <form [formGroup]="registerForm">
-        <mat-form-field >
-            <mat-label>Email:</mat-label>
-            <input matInput formControlName="Email">
-        </mat-form-field>
-        <mat-form-field >
-            <mat-label>Login:</mat-label>
-            <input matInput formControlName="Login">
-        </mat-form-field>
-        <mat-form-field >
-            <mat-label>Password:</mat-label>
-            <input type="password" matInput formControlName="Password">
-        </mat-form-field>
-        <button type="submit" class="submit-button" (click)="submit()">Register</button>
-        <button class="prime-button m-t-15" (click)="switchMode()">Login</button>
-    </form>
+    <div *ngIf="!IsLoginMode" class="container w-400">
+        <form [formGroup]="registerForm">
+            <mat-form-field >
+                <mat-label>Email:</mat-label>
+                <input matInput formControlName="Email">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Login:</mat-label>
+                <input matInput formControlName="Login">
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Password:</mat-label>
+                <input type="password" matInput formControlName="Password">
+            </mat-form-field>
+            <button type="submit" class="submit-button" (click)="submit()">Register</button>
+            <button class="prime-button m-t-15" (click)="switchMode()">Login</button>
+        </form>
+    </div>
 </div>
