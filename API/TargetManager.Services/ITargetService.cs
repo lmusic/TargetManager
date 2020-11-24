@@ -7,9 +7,9 @@ namespace TargetManager.Services
 {
     public interface ITargetService
     {
-        Task<IEnumerable<Target>> GetAll();
+        Task<IEnumerable<Target>> GetAll(User user);
         Task<Target> GetTarget(int id);
-        Task AddTarget(string name, string description, DateTime deadline, TargetType type);
+        Task AddTarget(User user, string name, string description, DateTime deadline, TargetType type);
         Task UpdateTarget(int id, string name, string description, DateTime deadline, TargetType type);
         Task DeleteTarget(int id);
     }

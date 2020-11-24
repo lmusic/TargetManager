@@ -12,14 +12,17 @@ namespace TargetManager.API.Controllers
     public class TargetsController : ControllerBase
     {
         private readonly ITargetService _targetService;
-        public TargetsController(ITargetService targetService)
+        private readonly IUserService _userService;
+        public TargetsController(ITargetService targetService, IUserService userService)
         {
             _targetService = targetService;
+            _userService = userService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var targets = await _targetService.GetAll();
+            var user = await _userService.Get(HttpContext.User.Identity.Name);
+            var targets = await _targetService.GetAll(user);
 
             return new JsonResult(targets);
         }
@@ -36,7 +39,9 @@ namespace TargetManager.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(TargetViewModel targetViewModel)
         {
-            await _targetService.AddTarget(targetViewModel.Name, targetViewModel.Description, targetViewModel.DeadLine, targetViewModel.Type);
+            var user = await _userService.Get(HttpContext.User.Identity.Name);
+
+            await _targetService.AddTarget(user, targetViewModel.Name, targetViewModel.Description, targetViewModel.DeadLine, targetViewModel.Type);
 
             return Ok();
         }

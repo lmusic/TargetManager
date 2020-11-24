@@ -17,16 +17,19 @@ namespace TargetManager.Domain
             private set => _password = value?.EncodeDecrypt();
         }
 
+        public List<Target> Targets { get; private set; }
         protected User()
         {
 
         }
 
-        public User(string email, string login, string password)
+        public User(string email, string login, string password, List<Target> targets = null)
         {
             Email = email;
             Login = login;
             Password = password;
+
+            Targets = targets ?? new List<Target>();
         }
 
 

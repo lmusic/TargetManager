@@ -14,18 +14,18 @@ namespace TargetManager.Services
             _targetRepository = targetRepository;
         }
 
-        public async Task<IEnumerable<Target>> GetAll()
+        public async Task<IEnumerable<Target>> GetAll(User user)
         {
-            return await _targetRepository.GetAll();
+            return await _targetRepository.Get(x => x.UserId == user.Id);
         }
         public async Task<Target> GetTarget(int id)
         {
             return await _targetRepository.FindById(id);
         }
 
-        public async Task AddTarget(string name, string description, DateTime deadline, TargetType type)
+        public async Task AddTarget(User user, string name, string description, DateTime deadline, TargetType type)
         {
-            var target = new Target(name, description, deadline, type);
+            var target = new Target(user, name, description, deadline, type);
 
             await _targetRepository.Create(target);
         }

@@ -61,7 +61,10 @@ namespace TargetManager.API
                     };
                 });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             //services
             services.AddScoped<ITargetService, TargetService>();

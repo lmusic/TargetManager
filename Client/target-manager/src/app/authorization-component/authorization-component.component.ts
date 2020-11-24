@@ -40,10 +40,8 @@ export class AuthorizationComponentComponent implements OnInit {
     }
  
     this.httpService.register(this.registerForm.value.Email, this.registerForm.value.Login, this.registerForm.value.Password).subscribe(result => {
-      if(result) {
         this.isLoading = false;
         this.switchMode();
-      }
     });
   }
 

@@ -35,12 +35,15 @@ namespace TargetManager.API.Controllers
                 return BadRequest("User not found");
             }
 
+            var identity = GetIdentity(user);
+
             var now = DateTime.UtcNow;
 
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.Issuer,
                 audience: AuthOptions.Audience,
                 notBefore: now,
+                claims:identity.Claims,
                 expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
@@ -86,6 +89,24 @@ namespace TargetManager.API.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return Ok();
+        }
+
+        private ClaimsIdentity GetIdentity(User user)
+        {
+            if (user == null)
+            {
+                return null;
+            }
+
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login)
+                };
+
+            var claimsIdentity =
+                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
+            return claimsIdentity;
         }
 
     }

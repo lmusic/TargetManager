@@ -10,17 +10,24 @@ namespace TargetManager.Domain
         public DateTime DeadLine { get; private set; }
         public TargetType Type { get; private set; }
 
+        public User User { get; private set; }
+
+        public int? UserId { get; set; }
+
         protected Target()
         {
 
         }
 
-        public Target(string name, string description, DateTime deadLine, TargetType type)
+        public Target(User user, string name, string description, DateTime deadLine, TargetType type)
         {
             Name = name;
             Description = description;
             DeadLine = deadLine;
             Type = type;
+
+            User = user;
+            UserId = user.Id;
         }
 
         public void EditName(string name)
